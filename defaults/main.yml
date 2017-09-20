@@ -1,6 +1,8 @@
 ---
 # defaults file for ansible-prometheus
 
+# Prometheus variables
+
 # Prometheus system user group
 prometheus_group: prometheus
 # Prometheus system user name
@@ -51,3 +53,11 @@ prometheus_scrape_interval: 15s
 prometheus_scrape_timeout: 10s
 # Evaluation interval: default 15s
 prometheus_evaluation_interval: 15s
+
+# Alert manager variables
+
+# Alert manager version
+alertmanager_version: 0.8.0
+
+# Alert manager service name
+alertmanager_service_name: alertmanager
