@@ -21,7 +21,7 @@
       dest: "/tmp/{{ prometheus_prom_archive }}"
     retries: 5
     delay: 10
-    
+
   - name: "Expand Prometheus binaries"
     unarchive:
       src: "/tmp/{{ prometheus_prom_archive }}"
@@ -54,7 +54,7 @@
     group: "{{ prometheus_group }}"
     mode: "u=rwx,g=rx,o="
   with_items:
-    - "{{ prometheus_path_db }}"
+    - "{{ prometheus_path_data }}"
     - "{{ prometheus_path_rules }}"
     - "{{ prometheus_path_file_sd_config }}"
 
@@ -69,6 +69,8 @@
     name: "{{ prometheus_service_name }}"
     daemon_reload: yes
   when: prometheus_service_changed.changed == True
+  notify:
+    - "restart prometheus service"
 
 - name: "Ensure Prometheus Server systemd service run at boot time"
   systemd:

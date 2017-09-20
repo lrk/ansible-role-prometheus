@@ -34,7 +34,7 @@ prometheus_path_log:  /var/log/prometheus
 # Prometheus PID path
 prometheus_path_pid:  /var/run/prometheus
 # Prometheus Data path:
-prometheus_path_db: /var/lib/prometheus
+prometheus_path_data: /var/lib/prometheus
 # Prometheus rules path:
 prometheus_path_rules: "{{ prometheus_path_config}}/rules"
 # Prometheus file sd config path:

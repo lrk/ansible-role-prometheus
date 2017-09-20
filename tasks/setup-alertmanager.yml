@@ -45,6 +45,17 @@
     group: "{{ prometheus_group }}"
     mode: "go-w"
 
+- name: "Create Alert Manager directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ alertmanager_path_data }}"
+    - "{{ alertmanager_path_templates }}"
+
 - name: "Ensure Alert Manager systemd's unit file exists"
   template:
     src: "alertmanager.service.j2"
@@ -56,6 +67,8 @@
     name: "{{ alertmanager_service_name }}"
     daemon_reload: yes
   when: alertmanager_service_changed.changed == True
+  notify:
+    - "restart alertmanager service"
 
 - name: "Ensure Alert Manager systemd service run at boot time"
   systemd:
