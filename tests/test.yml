@@ -1,7 +1,9 @@
 ---
 - hosts: localhost
   remote_user: root
-  # vars:
+  vars:
+    prometheus_components:
+      - prometheus
 
   roles:
     - role_under_test

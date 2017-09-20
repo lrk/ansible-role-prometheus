@@ -2,7 +2,9 @@
 - hosts: localhost
   remote_user: root
   become: true
-  # vars:
+  vars:
+    prometheus_components:
+      - prometheus
 
   pre_tasks:
     - name: "Informations"
