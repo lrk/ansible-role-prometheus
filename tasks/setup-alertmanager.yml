@@ -45,24 +45,24 @@
     group: "{{ prometheus_group }}"
     mode: "go-w"
 
-# - name: "Ensure Prometheus systemd's unit file exists"
-#   template:
-#     src: "alertmanager.service.j2"
-#     dest: "/etc/systemd/system/{{ alertmanager_service_name }}.service"
-#   register: alertmanager_service_changed
-#
-# - name: "Ensure systemd daemon reload"
-#   systemd:
-#     name: "{{ alertmanager_service_name }}"
-#     daemon_reload: yes
-#   when: alertmanager_service_changed.changed == True
-#
-# - name: "Ensure Alert Manager systemd service run at boot time"
-#   systemd:
-#     name: "{{ alertmanager_service_name }}"
-#     enabled: yes
-#   notify:
-#     - "restart alertmanager service"
+- name: "Ensure Alert Manager systemd's unit file exists"
+  template:
+    src: "alertmanager.service.j2"
+    dest: "/etc/systemd/system/{{ alertmanager_service_name }}.service"
+  register: alertmanager_service_changed
+
+- name: "Ensure systemd daemon reload"
+  systemd:
+    name: "{{ alertmanager_service_name }}"
+    daemon_reload: yes
+  when: alertmanager_service_changed.changed == True
+
+- name: "Ensure Alert Manager systemd service run at boot time"
+  systemd:
+    name: "{{ alertmanager_service_name }}"
+    enabled: yes
+  notify:
+    - "restart alertmanager service"
 
 - name: "Ensure Alert manager configuration"
   template:
@@ -71,5 +71,5 @@
     owner: "{{ prometheus_user }}"
     group: "{{ prometheus_group }}"
     mode: "u=rw,g=,o="
-  # notify:
-  #     - "restart alertmanager service"
+  notify:
+      - "restart alertmanager service"
