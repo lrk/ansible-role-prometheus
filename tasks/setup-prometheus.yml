@@ -6,7 +6,7 @@
 
 - name: "Ensure Prometheus binary exists"
   stat:
-    path: "{{ prometheus_path_install }}/"
+    path: "{{ prometheus_path_install }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}/prometheus"
   register: prometheus_binary_stat
 
 - name: "Download and expand Prometheus binaries"
@@ -14,7 +14,7 @@
     src: "{{ prometheus_binary_url }}"
     dest: "{{ prometheus_path_install }}"
     copy: no
-  when: prometheus_binary_stat.stat.exists == False
+  when: not prometheus_binary_stat.stat.exists
 
 - name: "Ensure files permissions"
   file:
