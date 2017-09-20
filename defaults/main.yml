@@ -46,3 +46,5 @@ prometheus_scrape_interval: 15s
 prometheus_scrape_timeout: 10s
 # Evaluation interval: default 15s
 prometheus_evaluation_interval: 15s
+# Prometheus scheme: default http
+prometheus_scheme: http

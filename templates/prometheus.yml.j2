@@ -2,3 +2,4 @@ global:
   scrape_interval:  {{ prometheus_scrape_interval | default('15s') }}
   scrape_timeout: {{ prometheus_scrape_timeout | default('10s') }}
   evaluation_interval:  {{ prometheus_evaluation_interval | default('15s') }}
+  scheme: {{ prometheus_scheme | default('http') }}
