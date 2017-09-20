@@ -10,7 +10,7 @@
 
 - name: "Ensure Prometheus binary exists"
   stat:
-    path: "{{ prometheus_path_install }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}/prometheus"
+    path: "{{ prometheus_daemon_dir }}/prometheus"
   register: prometheus_binary_stat
 
 - block:

@@ -37,10 +37,8 @@ prometheus_version: 1.7.1
 # Prometheus service name
 prometheus_service_name: prometheus
 
-# Address to bind on, default 0.0.0.0
-prometheus_bind_address: 0.0.0.0
-# Port on with prometheus will listen, default 9090
-prometheus_port: 9090
+# Address to bind on, default :9090
+prometheus_listen_address: ':9090'
 
 # URL of alert manager service
 prometheus_alertmanager_url: null
@@ -84,3 +82,12 @@ alertmanager_smtp_require_tls: false
 
 # Slack API url. default empty
 alertmanager_slack_api_url: null
+
+# Node exporter variables
+nodeexporter_version: 0.14.0
+# Node exporter service name
+nodeexporter_service_name: nodeexporter_{{ inventory_hostname_short }}
+# Node exporter listen address
+nodeexporter_listen_address: ":9100"
+# Collectors enables, comma-separated list of collectors to use. (default "conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs")
+nodeexporter_collectors_enabled: "conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs"

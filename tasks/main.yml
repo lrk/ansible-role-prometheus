@@ -31,14 +31,14 @@
 - name: "Set role facts"
   include: setup-facts.yml
 
-- name: "Install Prometheus"
-  include: setup-prometheus.yml
-  when: '"prometheus" in prometheus_components'
+- name: "Install Node Exporter"
+  include: setup-nodeexporter.yml
+  when: '"node_exporter" in prometheus_components'
 
 - name: "Install Alert manager"
   include: setup-alertmanager.yml
   when: '"alertmanager" in prometheus_components'
 
-- name: "Install Node Exporter"
-  include: setup-nodeexporter.yml
-  when: '"node_exporter" in prometheus_components'
+- name: "Install Prometheus"
+  include: setup-prometheus.yml
+  when: '"prometheus" in prometheus_components'
