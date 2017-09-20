@@ -32,10 +32,10 @@
     - "{{ prometheus_path_config }}"
     - "{{ prometheus_path_log }}"
     - "{{ prometheus_path_pid }}"
-
+    
 - name: "Set role facts"
   include: setup-facts.yml
-  
+
 - name: "Install Prometheus"
   include: setup-prometheus.yml
   when: '"prometheus" in prometheus_components'

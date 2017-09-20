@@ -24,3 +24,37 @@
     owner: "{{ prometheus_user }}"
     group: "{{ prometheus_group }}"
     mode: "go-w"
+
+- name: "Create Prometheus directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_path_db }}"
+    - "{{ prometheus_path_rules }}"
+    - "{{ prometheus_path_file_sd_config }}"
+
+- name: "Ensure Prometheus systemd's unit file exists"
+  template:
+    src: "prometheus.service.j2"
+    dest: "/etc/systemd/system/{{ prometheus_server_service_name }}.service"
+
+- name: "Ensure Prometheus Server systemd service run at boot time"
+  systemd:
+    name: "{{ prometheus_server_service_name }}"
+    enabled: yes
+  notify:
+    - "restart prometheus service"
+
+- name: "Ensure Prometheus configuration"
+  template:
+    src: "prometheus.yml.j2"
+    dest: "{{ prometheus_path_config }}/prometheus.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rw,g=,o="
+  notify:
+      - "restart prometheus service"
