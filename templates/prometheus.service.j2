@@ -1,5 +1,3 @@
-# /etc/systemd/system/prometheus.service
-
 [Unit]
 Description=Prometheus Server {{ prometheus_version }}
 Documentation=https://prometheus.io/docs/introduction/overview/
@@ -8,6 +6,7 @@ After=network-online.target
 [Service]
 User={{ prometheus_user }}
 Restart=on-failure
+RestartSec=10
 ExecStart={{ prometheus_daemon_dir }}/prometheus \
               -config.file={{ prometheus_path_config }}/prometheus.yml \
               -storage.local.path={{ prometheus_path_db }} \
