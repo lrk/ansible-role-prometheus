@@ -33,7 +33,10 @@ prometheus_components: []
 prometheus_version: 1.7.1
 
 # Prometheus service name
-prometheus_server_service_name: prometheus
+prometheus_service_name: prometheus
+
+# Port on with prometheus will listen, default 9090
+prometheus_port: 9090
 
 # URL of alert manager service
 prometheus_alertmanager_url:

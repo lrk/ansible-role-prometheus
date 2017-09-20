@@ -1,5 +1,5 @@
 [Unit]
-Description=Prometheus Server {{ prometheus_version }}
+Description=Prometheus {{ prometheus_version }}
 Documentation=https://prometheus.io/docs/introduction/overview/
 After=network-online.target
 
@@ -8,6 +8,7 @@ User={{ prometheus_user }}
 Restart=on-failure
 RestartSec=10
 ExecStart={{ prometheus_daemon_dir }}/prometheus \
+              -web.listen-address={{ prometheus_port | default('9090') }} \
               -config.file={{ prometheus_path_config }}/prometheus.yml \
               -storage.local.path={{ prometheus_path_db }} \
               {% if prometheus_alertmanager_url is defined %}

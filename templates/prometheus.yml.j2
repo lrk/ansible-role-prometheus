@@ -11,6 +11,16 @@ global:
   # [ evaluation_interval: <duration> | default = 1m ]
   evaluation_interval:  {{ prometheus_evaluation_interval | default('15s') }}
 
+  scrapes_configs:
+    # Scrape job for prometheus himself
+    - job_name: '{{ prometheus_service_name }}'
+      static_configs:
+        -targets: ['localhost:{{ prometheus_port | default('9090') }}']
+
+
+
+
+
 #  # The labels to add to any time series or alerts when communicating with
 #  # external systems (federation, remote storage, Alertmanager).
 #  external_labels:

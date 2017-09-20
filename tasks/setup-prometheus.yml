@@ -40,18 +40,18 @@
 - name: "Ensure Prometheus systemd's unit file exists"
   template:
     src: "prometheus.service.j2"
-    dest: "/etc/systemd/system/{{ prometheus_server_service_name }}.service"
+    dest: "/etc/systemd/system/{{ prometheus_service_name }}.service"
   register: prometheus_service_changed
 
 - name: "Ensure systemd daemon reload"
   systemd:
-    name: "{{ prometheus_server_service_name }}"
+    name: "{{ prometheus_service_name }}"
     daemon_reload: yes
   when: prometheus_service_changed.changed == True
 
 - name: "Ensure Prometheus Server systemd service run at boot time"
   systemd:
-    name: "{{ prometheus_server_service_name }}"
+    name: "{{ prometheus_service_name }}"
     enabled: yes
   notify:
     - "restart prometheus service"
