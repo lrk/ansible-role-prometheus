@@ -1,0 +1,41 @@
+---
+# tasks file for ansible-prometheus
+
+# # Setup/install tasks.
+# - include: "setup-{{ ansible_os_family }}.yml"
+#   static: no
+
+
+- name: "Create Prometheus group"
+  group:
+    name: "{{ prometheus_group }}"
+    state: present
+
+- name: "Create Prometheus system user"
+  user:
+    name: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    createhome: no
+    shell: "/sbin/nologin"
+    comment: "Prometheus System user"
+    state: present
+
+- name: "Create Prometheus directories"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_path_install }}"
+    - "{{ prometheus_path_config }}"
+    - "{{ prometheus_path_log }}"
+    - "{{ prometheus_path_pid }}"
+
+- name: "Set role facts"
+  include: setup-facts.yml
+  
+- name: "Install Prometheus"
+  include: setup-prometheus.yml
+  when: '"prometheus" in prometheus_components'

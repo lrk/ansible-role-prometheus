@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  remote_user: root
+  become: true
+  # vars:
+
+  pre_tasks:
+    - name: "Informations"
+      debug:
+        msg: "Don't forget to make symb link of /vagrant to tests/roles/ansible-prometheus"
+    - name: "Informations"
+      debug:
+        msg: "run following command: ansible-playbook -i tests/inventory --connection=local tests/vagranttest.yml"
+  roles:
+    - ansible-prometheus

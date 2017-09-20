@@ -1,0 +1,27 @@
+---
+# defaults file for ansible-prometheus
+
+# Prometheus system user group
+prometheus_group: prometheus
+# Prometheus system user name
+prometheus_user: prometheus
+
+# Prometheus install path
+prometheus_path_install: /opt/prometheus
+# Prometheus configuration path
+prometheus_path_config: /etc/prometheus
+# Prometheus logs path
+prometheus_path_log:  /var/log/prometheus
+# Prometheus PID path
+prometheus_path_pid:  /var/run/prometheus
+
+# Prometheus components to install
+# Can be a mix of:
+#   - prometheus
+#   - node_exporter
+#   - alert_manager
+prometheus_components: []
+
+
+# Prometheus version
+prometheus_version: 1.7.1

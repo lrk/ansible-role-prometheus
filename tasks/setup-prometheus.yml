@@ -1,0 +1,21 @@
+---
+
+- name: "Set Binary url"
+  set_fact:
+    prometheus_binary_url: "{{ __prometheus_bin_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}.tar.gz"
+
+
+- name: "Download and expand Prometheus binaries"
+  unarchive:
+    src: "{{ prometheus_binary_url }}"
+    dest: "{{ prometheus_path_install }}"
+    copy: no
+
+- name: "Ensure files permissions"
+  file:
+    path: "{{ prometheus_path_install }}"
+    state: directory
+    recurse: yes
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "go-w"

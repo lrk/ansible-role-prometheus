@@ -1,0 +1,7 @@
+---
+# vars file for ansible-prometheus
+
+# https://prometheus.io/download/#prometheus
+
+
+__prometheus_bin_url: "https://github.com/prometheus/prometheus/releases/download"
