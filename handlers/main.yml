@@ -4,4 +4,4 @@
 - name: "restart prometheus service"
   service:
     name: "{{ prometheus_server_service_name }}"
-    state: restart
+    state: restarted

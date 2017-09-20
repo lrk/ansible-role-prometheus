@@ -9,8 +9,8 @@ After=network-online.target
 User={{ prometheus_user }}
 Restart=on-failure
 ExecStart={{ prometheus_daemon_dir }}/prometheus \
-              -config.file={{ prometheus_config_path }}/prometheus.yml \
-              -storage.local.path={{ prometheus_db_path }} \
+              -config.file={{ prometheus_path_config }}/prometheus.yml \
+              -storage.local.path={{ prometheus_path_db }} \
               {% if prometheus_alertmanager_url is defined %}
               -alertmanager.url={{ prometheus_alertmanager_url }} \
               {% endif %}

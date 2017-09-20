@@ -34,3 +34,15 @@ prometheus_version: 1.7.1
 
 # Prometheus service name
 prometheus_server_service_name: prometheus
+
+# URL of alert manager service
+prometheus_alertmanager_url:
+
+#Parameters for prometheus.yml
+
+# Scrape interval: default 15s
+prometheus_scrape_interval: 15s
+# Scrape timeout: default 10s
+prometheus_scrape_timeout: 10s
+# Evaluation interval: default 15s
+prometheus_evaluation_interval: 15s

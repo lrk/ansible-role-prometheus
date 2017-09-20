@@ -25,7 +25,6 @@
     group: "{{ prometheus_group }}"
     mode: "go-w"
 
-
 - name: "Create Prometheus directories"
   file:
     path: "{{ item }}"
@@ -47,9 +46,15 @@
   systemd:
     name: "{{ prometheus_server_service_name }}"
     enabled: yes
+  notify:
+    - "restart prometheus service"
 
-- name: "Ensure Prometheus Server systemd service is up and running"
-  service:
-    name: "{{ prometheus_server_service_name }}"
-    state: started
-    daemon_reload: yes
+- name: "Ensure Prometheus configuration"
+  template:
+    src: "prometheus.yml.j2"
+    dest: "{{ prometheus_path_config }}/prometheus.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rw,g=,o="
+  notify:
+      - "restart prometheus service"
