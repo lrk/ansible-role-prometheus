@@ -71,5 +71,5 @@
     owner: "{{ prometheus_user }}"
     group: "{{ prometheus_group }}"
     mode: "u=rw,g=,o="
-  notify:
-      - "restart alertmanager service"
+  # notify:
+  #     - "restart alertmanager service"
