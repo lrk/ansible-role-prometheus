@@ -5,7 +5,7 @@
 
 - name: "Set Binary url fact"
   set_fact:
-    prometheus_am_binary_url: "{{ __prometheus_am_bin_url }}/v{{ alertmanager_version }}/{{ alertmanager_archive }}"
+    prometheus_am_binary_url: "{{ __prometheus_am_bin_url }}/v{{ alertmanager_version }}/{{ prometheus_am_archive }}"
 
 - name: "Ensure Alert Manager binary exists"
   stat:
