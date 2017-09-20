@@ -4,12 +4,17 @@
   set_fact:
     prometheus_binary_url: "{{ __prometheus_bin_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}.tar.gz"
 
+- name: "Ensure Prometheus binary exists"
+  stat:
+    path: "{{ prometheus_path_install }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}/prometheus"
+  register: prometheus_binary_stat
 
 - name: "Download and expand Prometheus binaries"
   unarchive:
     src: "{{ prometheus_binary_url }}"
     dest: "{{ prometheus_path_install }}"
     copy: no
+  when: not prometheus_binary_stat.stat.exists
 
 - name: "Ensure files permissions"
   file:
