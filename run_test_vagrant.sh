@@ -1,5 +1,9 @@
 #!/bin/bash
+
+# Don't show commands
 set +x
+# Exit on any failure
+set -e
 
 if [ ! -d "/vagrant/tests/roles" ]
 then

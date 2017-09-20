@@ -1,19 +1,40 @@
 ---
 
+- name: "Set Archive name fact"
+  set_fact:
+    prometheus_prom_archive: "prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}.tar.gz"
+
 - name: "Set Binary url"
   set_fact:
-    prometheus_binary_url: "{{ __prometheus_bin_url }}/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}.tar.gz"
+    prometheus_binary_url: "{{ __prometheus_prom_bin_url }}/v{{ prometheus_version }}/{{ prometheus_prom_archive }}"
 
 - name: "Ensure Prometheus binary exists"
   stat:
     path: "{{ prometheus_path_install }}/prometheus-{{ prometheus_version }}.{{ prometheus_platform_suffix }}/prometheus"
   register: prometheus_binary_stat
 
-- name: "Download and expand Prometheus binaries"
-  unarchive:
-    src: "{{ prometheus_binary_url }}"
-    dest: "{{ prometheus_path_install }}"
-    copy: no
+- block:
+
+  - name: "Download Prometheus binaries"
+    get_url:
+      url: "{{ prometheus_binary_url }}"
+      dest: "/tmp/{{ prometheus_prom_archive }}"
+    retries: 5
+    delay: 10
+    
+  - name: "Expand Prometheus binaries"
+    unarchive:
+      src: "/tmp/{{ prometheus_prom_archive }}"
+      dest: "{{ prometheus_path_install }}"
+      owner: "{{ prometheus_user }}"
+      group: "{{ prometheus_group }}"
+      copy: no
+
+  - name: "Remove Prometheus archive"
+    file:
+      path: "/tmp/{{ prometheus_prom_archive }}"
+      state: absent
+
   when: not prometheus_binary_stat.stat.exists
 
 - name: "Ensure files permissions"

@@ -5,3 +5,8 @@
   service:
     name: "{{ prometheus_service_name }}"
     state: restarted
+
+- name: "restart alertmanager service"
+  service:
+    name: "{{ alertmanager_service_name }}"
+    state: restarted
