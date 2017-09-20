@@ -3,9 +3,9 @@
 - name: "Use linux 64bit binaries"
   set_fact:
     prometheus_platform_suffix: "linux-amd64"
-  when: 'ansible_userspace_bits = "64"'
+  when: 'ansible_userspace_bits == "64"'
 
 - name: "Use linux 32bit binaries"
   set_fact:
     prometheus_platform_suffix: "linux-386"
-  when: 'ansible_userspace_bits = "32"'
+  when: 'ansible_userspace_bits == "32"'
