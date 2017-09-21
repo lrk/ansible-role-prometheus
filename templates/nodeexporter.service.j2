@@ -1,0 +1,15 @@
+[Unit]
+Description=Node exporter {{ nodeexporter_version }}
+Documentation=https://prometheus.io/docs/introduction/overview/
+After=network-online.target
+
+[Service]
+User={{ prometheus_user }}
+Restart=on-failure
+RestartSec=10
+ExecStart={{ nodeexporter_daemon_dir }}/node_exporter \
+              -web.listen-address={{ nodeexporter_listen_address | default(':9100') }} \
+              -collectors.enabled={{ nodeexporter_collectors_enabled | default('conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs') }}
+
+[Install]
+WantedBy=multi-user.target

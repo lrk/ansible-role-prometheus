@@ -19,6 +19,10 @@ Role Variables
 
 Available variables along with default values are listed below (see `defaults/main.yml`)
 ```yml
+---
+# defaults file for ansible-prometheus
+
+# Prometheus variables
 
 # Prometheus system user group
 prometheus_group: prometheus
@@ -34,7 +38,7 @@ prometheus_path_log:  /var/log/prometheus
 # Prometheus PID path
 prometheus_path_pid:  /var/run/prometheus
 # Prometheus Data path:
-prometheus_path_db: /var/lib/prometheus
+prometheus_path_data: /var/lib/prometheus
 # Prometheus rules path:
 prometheus_path_rules: "{{ prometheus_path_config}}/rules"
 # Prometheus file sd config path:
@@ -44,7 +48,7 @@ prometheus_path_file_sd_config: "{{ prometheus_path_config}}/tgroups"
 # Can be a mix of:
 #   - prometheus
 #   - node_exporter
-#   - alert_manager
+#   - alertmanager
 prometheus_components: []
 
 
@@ -54,13 +58,11 @@ prometheus_version: 1.7.1
 # Prometheus service name
 prometheus_service_name: prometheus
 
-# Address to bind on, default 0.0.0.0
-prometheus_bind_address: 0.0.0.0
-# Port on with prometheus will listen, default 9090
-prometheus_port: 9090
+# Address to bind on, default :9090
+prometheus_listen_address: ':9090'
 
 # URL of alert manager service
-prometheus_alertmanager_url:
+prometheus_alertmanager_url: null
 
 #Parameters for prometheus.yml
 
@@ -70,6 +72,46 @@ prometheus_scrape_interval: 15s
 prometheus_scrape_timeout: 10s
 # Evaluation interval: default 15s
 prometheus_evaluation_interval: 15s
+
+# Alert manager variables
+
+# Alert manager version
+alertmanager_version: 0.8.0
+
+# Alert manager service name
+alertmanager_service_name: alertmanager
+
+# Alert manager template path
+alertmanager_path_templates: "{{ prometheus_path_config }}/templates"
+# Alert manager data path
+alertmanager_path_data: /var/lib/alertmanager
+
+# ResolveTimeout is the time after which an alert is declared resolved if it has not been updated. default: 5m
+alertmanager_resolve_timeout: 5m
+
+# The default SMTP From header field. default empty
+alertmanager_smtp_from: null
+# The default SMTP smarthost used for sending emails. default empty
+alertmanager_smtp_smarthost: null
+# SMTP authentication information. default empty
+alertmanager_smtp_auth_username: null
+alertmanager_smtp_auth_password: null
+alertmanager_smtp_auth_secret: null
+alertmanager_smtp_auth_identity: null
+# The default SMTP TLS requirement. default: false
+alertmanager_smtp_require_tls: false
+
+# Slack API url. default empty
+alertmanager_slack_api_url: null
+
+# Node exporter variables
+nodeexporter_version: 0.14.0
+# Node exporter service name
+nodeexporter_service_name: nodeexporter_{{ inventory_hostname_short }}
+# Node exporter listen address
+nodeexporter_listen_address: ":9100"
+# Collectors enables, comma-separated list of collectors to use. (default "conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs")
+nodeexporter_collectors_enabled: "conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs"
 
 ```
 

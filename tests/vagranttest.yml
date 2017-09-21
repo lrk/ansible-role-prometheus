@@ -6,5 +6,7 @@
     prometheus_components:
       - prometheus
       - alertmanager
+      - node_exporter
+      
   roles:
     - ansible-prometheus
