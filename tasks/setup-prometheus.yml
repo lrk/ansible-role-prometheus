@@ -86,5 +86,17 @@
     owner: "{{ prometheus_user }}"
     group: "{{ prometheus_group }}"
     mode: "u=rw,g=,o="
+  when: (prometheus_config_template is not defined) or (prometheus_config_template == None)
+  notify:
+      - "restart prometheus service"
+
+- name: "Ensure User defined Prometheus configuration"
+  template:
+    src: "{{ playbook_dir}}/{{ prometheus_config_template }}"
+    dest: "{{ prometheus_path_config }}/prometheus.yml"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rw,g=,o="
+  when: (prometheus_config_template is defined) and (prometheus_config_template != None)
   notify:
       - "restart prometheus service"
