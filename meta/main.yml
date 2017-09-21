@@ -19,7 +19,7 @@ galaxy_info:
   platforms:
   - name: EL
     versions:
-    - 7.x
+    - 7
 
   galaxy_tags:
     - 'prometheus'
