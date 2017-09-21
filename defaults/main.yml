@@ -27,7 +27,7 @@ prometheus_path_file_sd_config: "{{ prometheus_path_config}}/tgroups"
 # Can be a mix of:
 #   - prometheus
 #   - node_exporter
-#   - alert_manager
+#   - alertmanager
 prometheus_components: []
 
 

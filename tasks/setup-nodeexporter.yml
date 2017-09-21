@@ -76,13 +76,3 @@
     enabled: yes
   notify:
     - "restart nodeexporter service"
-
-- name: "Ensure Node exporter configuration"
-  template:
-    src: "nodeexporter.yml.j2"
-    dest: "{{ prometheus_path_config }}/{{ nodeexporter_service_name }}.yml"
-    owner: "{{ prometheus_user }}"
-    group: "{{ prometheus_group }}"
-    mode: "u=rw,g=,o="
-  notify:
-      - "restart nodeexporter service"
