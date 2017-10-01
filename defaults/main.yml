@@ -30,6 +30,8 @@ prometheus_path_file_sd_config: "{{ prometheus_path_config}}/tgroups"
 #   - alertmanager
 prometheus_components: []
 
+# Set the jinja2 template file to use instead of the provided one. Path based on playbook_dir
+prometheus_config_template: null
 
 # Prometheus version
 prometheus_version: 1.7.1
