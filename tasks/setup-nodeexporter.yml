@@ -60,15 +60,14 @@
   template:
     src: "nodeexporter.service.j2"
     dest: "/etc/systemd/system/{{ nodeexporter_service_name }}.service"
-  register: nodeexporter_service_changed
+  when: ( "ansible_service_mgr == 'systemd'")
 
-- name: "Ensure systemd daemon reload"
-  systemd:
+- name: "Ensure Node exporter service (systemd) is started and enabled"
+  service:
     name: "{{ nodeexporter_service_name }}"
-    daemon_reload: yes
-  when: nodeexporter_service_changed.changed == True
-  notify:
-    - "restart nodeexporter service"
+    state: started
+    enabled: true
+  when: ( "ansible_service_mgr == 'systemd'")
 
 - name: "Ensure Node exporter systemd service run at boot time"
   systemd:

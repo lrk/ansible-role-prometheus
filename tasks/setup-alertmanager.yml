@@ -60,22 +60,14 @@
   template:
     src: "alertmanager.service.j2"
     dest: "/etc/systemd/system/{{ alertmanager_service_name }}.service"
-  register: alertmanager_service_changed
+  when: "ansible_service_mgr == 'systemd'"
 
-- name: "Ensure systemd daemon reload"
-  systemd:
+- name: "Ensure Alert Manager service (systemd) is started and enabled"
+  service:
     name: "{{ alertmanager_service_name }}"
-    daemon_reload: yes
-  when: alertmanager_service_changed.changed == True
-  notify:
-    - "restart alertmanager service"
-
-- name: "Ensure Alert Manager systemd service run at boot time"
-  systemd:
-    name: "{{ alertmanager_service_name }}"
-    enabled: yes
-  notify:
-    - "restart alertmanager service"
+    state: started
+    enabled: true
+  when: ( "ansible_service_mgr == 'systemd'")
 
 - name: "Ensure Alert manager configuration"
   template:
