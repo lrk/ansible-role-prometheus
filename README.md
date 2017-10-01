@@ -1,6 +1,6 @@
 Ansible Role: Prometheus ([lrk.prometheus](https://galaxy.ansible.com/lrk/prometheus/))
 =========
-[![Build Status](https://travis-ci.org/lrk/ansible-prometheus.svg?branch=master)](https://travis-ci.org/lrk/ansible-prometheus)
+[![Build Status](https://travis-ci.org/lrk/ansible-role-prometheus.svg?branch=master)](https://travis-ci.org/lrk/ansible-role-prometheus)
 
 An Ansible Role that install [Prometheus](https://prometheus.io).
 

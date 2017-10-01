@@ -62,22 +62,14 @@
   template:
     src: "prometheus.service.j2"
     dest: "/etc/systemd/system/{{ prometheus_service_name }}.service"
-  register: prometheus_service_changed
+  when: "ansible_service_mgr == 'systemd'"
 
-- name: "Ensure systemd daemon reload"
-  systemd:
+- name: "Ensure Prometheus service (systemd) is started and enabled"
+  service:
     name: "{{ prometheus_service_name }}"
-    daemon_reload: yes
-  when: prometheus_service_changed.changed == True
-  notify:
-    - "restart prometheus service"
-
-- name: "Ensure Prometheus Server systemd service run at boot time"
-  systemd:
-    name: "{{ prometheus_service_name }}"
+    state: started
     enabled: yes
-  notify:
-    - "restart prometheus service"
+  when: "ansible_service_mgr == 'systemd'"
 
 - name: "Ensure Prometheus configuration"
   template:
