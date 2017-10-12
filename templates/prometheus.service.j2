@@ -9,6 +9,10 @@ Restart=on-failure
 RestartSec=10
 ExecStart={{ prometheus_daemon_dir }}/prometheus \
               -web.listen-address={{ prometheus_listen_address | default(':9090') }} \
+              {% if ( prometheus_web_external_url is defined ) and ( prometheus_web_external_url != None ) %}
+              -web.external-url={{ prometheus_web_external_url }} \
+              --web.route-prefix=/ \
+              {% endif %}
               -config.file={{ prometheus_path_config }}/prometheus.yml \
               -storage.local.path={{ prometheus_path_data }} \
               {% if ( prometheus_alertmanager_url is defined ) and  ( prometheus_alertmanager_url != None ) %}

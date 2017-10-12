@@ -61,7 +61,16 @@ prometheus_version: 1.7.1
 prometheus_service_name: prometheus
 
 # Address to bind on, default :9090
-prometheus_listen_address: ':9090'
+prometheus_listen_port: 9090
+prometheus_listen_address: ':{{ prometheus_listen_port }}'
+
+# Set the -web.external-url command line parameter. If defined, also set the -web.route-prefix command line parameter to /
+# The URL under which Prometheus is externally reachable (for example, if Prometheus is served via a reverse proxy).
+# Used for generating relative and absolute links back to Prometheus itself.
+# If the URL has a path portion, it will be used to prefix all HTTP endpoints served by Prometheus.
+# If omitted, relevant URL components will be derived automatically.
+# If set, also set
+prometheus_web_external_url: null
 
 # URL of alert manager service
 prometheus_alertmanager_url: null
@@ -111,10 +120,10 @@ nodeexporter_version: 0.14.0
 # Node exporter service name
 nodeexporter_service_name: nodeexporter_{{ inventory_hostname_short }}
 # Node exporter listen address
-nodeexporter_listen_address: ":9100"
+nodeexporter_listen_port: 9100
+nodeexporter_listen_address: ":{{ nodeexporter_listen_port }}"
 # Collectors enables, comma-separated list of collectors to use. (default "conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs")
 nodeexporter_collectors_enabled: "conntrack,diskstats,entropy,edac,filefd,filesystem,hwmon,infiniband,loadavg,mdadm,meminfo,netdev,netstat,sockstat,stat,textfile,time,uname,vmstat,wifi,zfs"
-
 ```
 
 Dependencies
@@ -125,11 +134,11 @@ None
 Example Playbook
 ----------------
 
-    TODO
+```
     - hosts: servers
       roles:
          - lrk.prometheus
-
+```
 
  License
  -------
