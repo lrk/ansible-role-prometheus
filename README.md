@@ -1,6 +1,9 @@
 Ansible Role: Prometheus ([lrk.prometheus](https://galaxy.ansible.com/lrk/prometheus/))
 =========
 [![Build Status](https://travis-ci.org/lrk/ansible-role-prometheus.svg?branch=master)](https://travis-ci.org/lrk/ansible-role-prometheus)
+[![Galaxy](https://img.shields.io/badge/galaxy-lrk.prometheus-blue.svg)](https://galaxy.ansible.com/lrk/prometheus)
+![Ansible](https://img.shields.io/ansible/role/d/20579.svg)
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F20579%2F&query=$.min_ansible_version)
 
 An Ansible Role that install [Prometheus](https://prometheus.io).
 
